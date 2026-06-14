@@ -412,12 +412,12 @@ const ADMIN_PASS = "vvimports2025";
 function verificarLoginAdmin(){
   const logado = sessionStorage.getItem("adminLogado");
 
-  if(!logado){
+  if (!logado && window.location.pathname.includes("admin.html")) {
     window.location.href = "adminlogin.html";
   }
 }
 
-const loginForm = document.getElementById("adminForm");
+const loginForm = document.getElementById("adminLoginForm");
 if(loginForm){
   loginForm.addEventListener("submit", function(e){
     e.preventDefault();
