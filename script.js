@@ -334,33 +334,23 @@ function verificarLoginAdmin() {
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  atualizarBadge();
+  const imageInput = document.getElementById("productImage");
+  const preview = document.getElementById("imagePreview");
 
-  if (document.getElementById("homeProducts")) renderizarHome();
-  if (document.getElementById("productsContainer")) renderizarProdutos();
+  if (!imageInput || !preview) return;
 
-  if (document.getElementById("adminProducts")) {
-    verificarLoginAdmin();
-    renderizarAdmin();
-  }
-});
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files[0];
 
-const imageInput = document.getElementById("productImage");
-
-if (imageInput) {
-  imageInput.addEventListener("change", function () {
-    const file = this.files[0];
-    const preview = document.getElementById("imagePreview");
-
-    if (!file || !preview) return;
+    if (!file) return;
 
     const reader = new FileReader();
 
-    reader.onload = function (e) {
+    reader.onload = (e) => {
       preview.src = e.target.result;   // 👈 imagem real
-      preview.style.display = "block"; // 👈 mostra ela
+      preview.style.display = "block"; // 👈 mostra
     };
 
     reader.readAsDataURL(file);
   });
-}
+});
