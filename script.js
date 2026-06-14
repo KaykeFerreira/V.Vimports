@@ -344,3 +344,23 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarAdmin();
   }
 });
+
+const imageInput = document.getElementById("productImage");
+
+if (imageInput) {
+  imageInput.addEventListener("change", function () {
+    const file = this.files[0];
+    const preview = document.getElementById("imagePreview");
+
+    if (!file || !preview) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      preview.src = e.target.result;   // 👈 imagem real
+      preview.style.display = "block"; // 👈 mostra ela
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
