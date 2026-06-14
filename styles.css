@@ -472,3 +472,14 @@ button{ border:none; outline:none; cursor:pointer; font-family:'Inter',sans-seri
   .login-card{ padding:35px 25px; }
   .admin-form-card{ padding:25px 20px; }
 }
+
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.logo-img{
+    height: 70px;      /* ajuste conforme necessário */
+    width: auto;
+    object-fit: contain;
+}
