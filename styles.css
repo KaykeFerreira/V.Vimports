@@ -1,503 +1,212 @@
-/* =========================
-   VC IMPORTS — styles.css
-   VERSÃO LIMPA E ORGANIZADA
-========================= */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-/* ── VARIÁVEIS ─────────────── */
 :root{
-  --bg:#150608;
-  --bg2:#1d0b0d;
-  --card:#201214;
-  --red:#C92A23;
-  --red-dark:#6A0A0B;
-  --gray:#98909B;
-  --white:#ffffff;
+  --bg:#120608;
+  --card:#1b0c10;
+  --red:#ff2d2d;
+  --text:#fff;
+  --muted:#aaa;
 }
 
-/* ── RESET ─────────────── */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
+  font-family:'Inter',sans-serif;
 }
-
-html{ scroll-behavior:smooth; }
 
 body{
   background:var(--bg);
-  color:var(--white);
-  font-family:'Inter',sans-serif;
+  color:var(--text);
   overflow-x:hidden;
 }
 
-a{ text-decoration:none; color:inherit; }
-img{ max-width:100%; display:block; }
-button{
-  border:none;
-  outline:none;
-  cursor:pointer;
-  font-family:'Inter',sans-serif;
-}
-
-/* ── HEADER ─────────────── */
+/* HEADER */
 .header{
   position:fixed;
-  width:100%;
   top:0;
-  left:0;
+  width:100%;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(10px);
   z-index:1000;
-  background:rgba(21,6,8,.85);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .header-inner{
-  max-width:1400px;
-  height:90px;
+  max-width:1200px;
   margin:auto;
+  height:80px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:0 40px;
+  align-items:center;
+  padding:0 20px;
 }
 
 /* LOGO */
-.logo{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.logo-circle{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:var(--red);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  box-shadow:0 0 25px rgba(201,42,35,.4);
-}
-
-.logo-vc{
-  font-family:'Bebas Neue';
-  font-size:28px;
-  line-height:1;
-}
-
-.logo-imp{
-  font-size:10px;
-  letter-spacing:2px;
+.logo-img{
+  height:60px;
+  width:auto;
+  object-fit:contain;
 }
 
 /* NAV */
 .nav{
   display:flex;
-  gap:40px;
+  gap:25px;
 }
 
 .nav-link{
-  position:relative;
-  font-size:15px;
-  font-weight:500;
+  color:var(--text);
+  text-decoration:none;
+  font-size:14px;
   transition:.3s;
 }
 
-.nav-link:hover{ color:var(--red); }
-
-.nav-link::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-8px;
-  width:0;
-  height:2px;
-  background:var(--red);
-  transition:.3s;
+.nav-link:hover{
+  color:var(--red);
 }
 
-.nav-link:hover::after{ width:100%; }
-
-/* HEADER ACTIONS */
-.header-actions{
-  display:flex;
-  align-items:center;
-  gap:20px;
-}
-
-.cart-btn{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  background:rgba(255,255,255,.05);
-  color:white;
-  position:relative;
-  transition:.3s;
-  font-size:20px;
-}
-
-.cart-btn:hover{
-  background:var(--red);
-  transform:translateY(-4px);
-}
-
-.cart-badge{
-  position:absolute;
-  top:-5px;
-  right:-5px;
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  background:var(--red);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-  font-weight:700;
-}
-
-/* HAMBURGER */
-.hamburger{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  background:rgba(255,255,255,.05);
-  display:none;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:5px;
-}
-
-.hamburger span{
-  width:22px;
-  height:2px;
-  background:white;
-  border-radius:2px;
-}
-
-/* ── HERO ─────────────── */
+/* HERO */
 .hero{
+  margin-top:80px;
+  min-height:90vh;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:80px 10%;
-  min-height:90vh;
-  background:radial-gradient(circle at top,#111 0%,#000 60%);
-  overflow:hidden;
-  position:relative;
-}
-
-.hero-content{
-  max-width:520px;
-  z-index:2;
-}
-
-.hero-eyebrow{
-  color:#aaa;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  font-size:12px;
+  padding:60px 10%;
 }
 
 .hero-title{
-  font-size:64px;
-  font-family:'Bebas Neue',sans-serif;
-  line-height:1;
+  font-family:'Bebas Neue';
+  font-size:60px;
 }
 
 .hero-red{
-  color:#ff2d2d;
-  text-shadow:0 0 20px rgba(255,45,45,.6);
+  color:var(--red);
 }
 
 .hero-sub{
-  margin-top:15px;
-  color:#bbb;
-  font-size:16px;
+  color:var(--muted);
+  margin-top:10px;
 }
 
-/* BOTÃO HERO (VERSÃO ÚNICA) */
+/* BOTÕES */
 .btn-hero{
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  margin-top:25px;
-  padding:14px 28px;
-  background:#ff2d2d;
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 25px;
+  background:var(--red);
   color:#fff;
-  font-weight:600;
-  border-radius:50px;
+  border-radius:30px;
+  text-decoration:none;
   transition:.3s;
-  box-shadow:0 0 25px rgba(255,45,45,.3);
-  width:220px;
-  height:65px;
 }
 
 .btn-hero:hover{
-  transform:translateY(-6px);
-  box-shadow:0 0 40px rgba(255,45,45,.5);
-}
-
-/* SLIDER */
-.hero-slider{
-  position:relative;
-  width:520px;
-  height:420px;
-  z-index:2;
-}
-
-.hero-shoe{
-  position:absolute;
-  width:100%;
-  opacity:0;
-  transform:rotate(-12deg) scale(.95);
-  transition:.8s ease;
-  filter:drop-shadow(0 30px 40px rgba(0,0,0,.7));
-}
-
-.hero-shoe.active{
-  opacity:1;
-  transform:rotate(-12deg) scale(1);
-}
-
-.hero-glow{
-  position:absolute;
-  width:320px;
-  height:320px;
-  background:radial-gradient(circle,rgba(255,45,45,.5),transparent 70%);
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  filter:blur(50px);
-  z-index:-1;
-}
-
-/* ── BOTÕES GERAIS ─────────────── */
-.btn-buy,
-.btn-checkout{
-  width:100%;
-  height:54px;
-  border-radius:50px;
-  background:var(--red);
-  color:white;
-  font-weight:600;
-  transition:.3s;
-}
-
-.btn-buy:hover,
-.btn-checkout:hover{
-  background:#ff2a2a;
-  box-shadow:0 0 35px rgba(255,0,0,.5);
-}
-
-.btn-details{
-  width:100%;
-  height:54px;
-  border-radius:50px;
-  background:transparent;
-  border:1px solid rgba(255,255,255,.2);
-  color:white;
-  transition:.3s;
-}
-
-.btn-details:hover{
-  border-color:var(--red);
-  color:var(--red);
-}
-
-.btn-delete{
-  width:100%;
-  height:54px;
-  border-radius:50px;
-  background:transparent;
-  border:1px solid rgba(201,42,35,.5);
-  color:var(--red);
-  transition:.3s;
-}
-
-.btn-delete:hover{
-  background:var(--red);
-  color:white;
-}
-
-/* ── SEÇÕES ─────────────── */
-.section{
-  padding:120px 40px;
-}
-
-.section-inner{
-  max-width:1400px;
-  margin:auto;
-}
-
-.section-title{
-  font-family:'Bebas Neue';
-  font-size:55px;
+  transform:scale(1.05);
 }
 
 /* GRID PRODUTOS */
 .products-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:30px;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
 }
 
 /* CARD */
 .product-card{
   background:var(--card);
-  border-radius:28px;
+  border-radius:20px;
   overflow:hidden;
-  transition:.4s;
-  border:1px solid rgba(255,255,255,.05);
+  position:relative;
+  transition:.3s;
 }
 
 .product-card:hover{
-  transform:translateY(-12px);
-  box-shadow:0 0 50px rgba(201,42,35,.2);
+  transform:translateY(-5px);
 }
 
-/* BUSCA */
-#searchInput{
+.product-img-wrap img{
   width:100%;
-  max-width:500px;
-  height:60px;
-  border-radius:50px;
-  padding:0 25px;
-  background:#1d0d0f;
-  color:white;
-  border:1px solid rgba(255,255,255,.08);
+  height:220px;
+  object-fit:cover;
 }
 
-/* CART */
-.cart-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  opacity:0;
-  visibility:hidden;
+.product-info{
+  padding:15px;
 }
 
-.cart-drawer{
-  position:fixed;
-  right:-460px;
-  top:0;
-  width:430px;
-  height:100vh;
-  background:#130609;
-  transition:.4s;
+.product-name{
+  font-size:16px;
+  margin-bottom:5px;
 }
 
-.cart-drawer.active{ right:0; }
-
-/* MODAL */
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  opacity:0;
-  visibility:hidden;
+.product-description{
+  font-size:13px;
+  color:var(--muted);
 }
 
-.modal-box{
-  width:900px;
-  background:#160810;
-  border-radius:30px;
+.product-price{
+  color:var(--red);
+  font-weight:bold;
+  margin:10px 0;
 }
 
-/* TOAST */
-.toast{
-  position:fixed;
-  bottom:40px;
-  right:40px;
-  background:#1d0d0f;
-  border:1px solid var(--red);
-  padding:16px 24px;
-  border-radius:18px;
-  opacity:0;
-}
-
-/* PROMO */
-.promo-banner{
-  margin-top:80px;
-  padding:80px;
-  border-radius:40px;
-  background:linear-gradient(135deg,#1d0b0d,#2d0e12);
-}
-
-/* LOGIN / ADMIN */
-.page-login,
-.page-admin{
-  padding:40px;
-}
-
-/* FOOTER */
-.footer{
-  margin-top:100px;
-  border-top:1px solid rgba(255,255,255,.06);
-}
-
-/* FLOATING ADMIN */
-.floating-admin{
-  position:fixed;
-  bottom:25px;
-  left:25px;
+/* BADGE DESTAQUE */
+.product-badge{
+  position:absolute;
+  top:10px;
+  left:10px;
   background:var(--red);
-  color:white;
-  padding:14px 22px;
-  border-radius:50px;
-  box-shadow:0 0 25px rgba(201,42,35,.4);
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:11px;
 }
 
-/* ── RESPONSIVO ─────────────── */
+/* BOTÕES */
+.btn-buy,
+.btn-details,
+.btn-delete{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:20px;
+  margin-top:8px;
+  cursor:pointer;
+}
+
+.btn-buy{
+  background:var(--red);
+  color:#fff;
+}
+
+.btn-details{
+  background:transparent;
+  border:1px solid #333;
+  color:#fff;
+}
+
+.btn-delete{
+  background:#333;
+  color:#fff;
+}
+
+/* CARRINHO */
+.cart-badge{
+  background:var(--red);
+  padding:2px 6px;
+  border-radius:50%;
+  font-size:12px;
+}
+
+/* RESPONSIVO */
 @media(max-width:768px){
   .hero{
     flex-direction:column;
     text-align:center;
+    gap:30px;
   }
 
   .nav{
     display:none;
   }
-
-  .hamburger{
-    display:flex;
-  }
-
-  .hero-title{
-    font-size:54px;
-  }
-}
-
-@media(max-width:500px){
-  .hero-title{ font-size:48px; }
-  .cart-drawer{ width:100%; }
-}
-
-.logo-img{
-  height:70px;
-  width:auto;
-  object-fit:contain;
-}
-
-.header-inner{
-  align-items:center;
-}
-
-.product-badge{
-  position:absolute;
-  top:15px;
-  left:15px;
-  background:#ff2d2d;
-  padding:6px 12px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.product-card{
-  position:relative;
 }
