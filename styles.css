@@ -411,6 +411,34 @@ button{ border:none; outline:none; cursor:pointer; font-family:'Inter',sans-seri
 }
 .product-card{ animation:fadeUp .6s ease both; }
 
+/* ── BOTÃO ADMIN FLUTUANTE ─────────────── */
+
+.floating-admin{
+    position:fixed;
+    bottom:25px;
+    left:25px;
+
+    background:var(--red);
+    color:white;
+
+    padding:14px 22px;
+    border-radius:50px;
+
+    font-size:15px;
+    font-weight:600;
+
+    z-index:2000;
+
+    box-shadow:0 0 25px rgba(201,42,35,.4);
+
+    transition:.3s;
+}
+
+.floating-admin:hover{
+    transform:translateY(-5px);
+    background:#ff2a2a;
+}
+
 /* ── RESPONSIVO ─────────────── */
 @media(max-width:900px){
   .admin-grid{ grid-template-columns:1fr; }
