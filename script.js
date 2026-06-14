@@ -1,5 +1,5 @@
 /* =========================
-   VV IMPORTS — SCRIPT.JS FINAL FIX 100%
+   VV IMPORTS — SCRIPT.JS FINAL FIX
 ========================= */
 
 /* =========================
@@ -43,13 +43,14 @@ function mostrarToast(texto) {
 }
 
 /* =========================
-   BADGE
+   BADGE CARRINHO
 ========================= */
 
 function atualizarBadge() {
   const total = carrinho.reduce((acc, i) => acc + i.quantidade, 0);
+
   document.querySelectorAll(".cart-badge").forEach(b => {
-    b.textContent = total;
+    if (b) b.textContent = total;
   });
 }
 
@@ -94,7 +95,7 @@ function renderizarCarrinho() {
   const totalEl = document.getElementById("cartTotal");
   if (!container) return;
 
-  if (carrinho.length === 0) {
+  if (!carrinho || carrinho.length === 0) {
     container.innerHTML = `
       <div class="cart-empty">
         <span>🛒</span>
@@ -139,7 +140,10 @@ function abrirProduto(id, e) {
   const p = produtos.find(x => x.id == id);
   if (!p) return;
 
-  document.getElementById("modalContent").innerHTML = `
+  const modalContent = document.getElementById("modalContent");
+  if (!modalContent) return;
+
+  modalContent.innerHTML = `
     <img src="${p.imagem}" style="width:100%;border-radius:10px;">
     <h2>${p.nome}</h2>
     <p>${p.descricao || ""}</p>
@@ -158,7 +162,7 @@ function fecharModal() {
 }
 
 /* =========================
-   CARD PRODUTO (FIX DESTAQUE)
+   CARD PRODUTO
 ========================= */
 
 function gerarCardProduto(p, admin = false) {
@@ -188,7 +192,7 @@ function gerarCardProduto(p, admin = false) {
 }
 
 /* =========================
-   HOME (SÓ DESTAQUES)
+   HOME (DESTAQUES)
 ========================= */
 
 function renderizarHome() {
@@ -197,9 +201,10 @@ function renderizarHome() {
 
   const destaques = produtos.filter(p => p.destaque === true);
 
-  el.innerHTML = destaques.length
-    ? destaques.map(p => gerarCardProduto(p)).join("")
-    : "<p>Sem destaques</p>";
+  el.innerHTML =
+    destaques.length > 0
+      ? destaques.map(gerarCardProduto).join("")
+      : "<p>Sem destaques</p>";
 }
 
 /* =========================
@@ -212,8 +217,8 @@ function renderizarProdutos(lista) {
 
   const data = lista || produtos;
 
-  el.innerHTML = data.length
-    ? data.map(p => gerarCardProduto(p)).join("")
+  el.innerHTML = (data && data.length)
+    ? data.map(gerarCardProduto).join("")
     : "<p>Nenhum produto</p>";
 }
 
@@ -242,7 +247,7 @@ function excluirProduto(id, e) {
 }
 
 /* =========================
-   CADASTRO PRODUTO (FIX FINAL)
+   CADASTRO PRODUTO
 ========================= */
 
 const productForm = document.getElementById("productForm");
@@ -251,25 +256,24 @@ if (productForm) {
   productForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const file = document.getElementById("productImage").files[0];
+    const file = document.getElementById("productImage")?.files[0];
+    if (!file) return alert("Selecione uma imagem!");
 
     const produto = {
       id: Date.now(),
-      imagem: "",
       nome: document.getElementById("productName").value,
       marca: document.getElementById("productBrand").value,
       categoria: document.getElementById("productCategory").value,
       descricao: document.getElementById("productDescription").value,
       preco: parseFloat(document.getElementById("productPrice").value),
       promo: document.getElementById("productPromo").value,
-      destaque: document.getElementById("productDestaque")?.checked || false
+      destaque: document.getElementById("productDestaque")?.checked || false,
+      imagem: ""
     };
-
-    if (!file) return alert("Selecione uma imagem!");
 
     const reader = new FileReader();
 
-    reader.onload = function () {
+    reader.onload = () => {
       produto.imagem = reader.result;
 
       produtos.push(produto);
@@ -284,7 +288,7 @@ if (productForm) {
       const preview = document.getElementById("imagePreview");
       if (preview) preview.style.display = "none";
 
-      mostrarToast("Produto salvo!");
+      mostrarToast("Produto salvo com sucesso!");
     };
 
     reader.readAsDataURL(file);
@@ -292,31 +296,46 @@ if (productForm) {
 }
 
 /* =========================
-   PREVIEW (MOSTRAR IMAGEM REAL)
+   LOGIN (CORRIGIDO)
+========================= */
+
+const loginForm = document.getElementById("adminLoginForm");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const u = document.getElementById("adminUser")?.value;
+    const s = document.getElementById("adminPass")?.value;
+
+    if (u === "admin" && s === "vvimports2025") {
+      sessionStorage.setItem("adminLogado", "true");
+      window.location.href = "admin.html";
+    } else {
+      const err = document.getElementById("loginError");
+      if (err) err.style.display = "block";
+    }
+  });
+}
+
+function verificarLoginAdmin() {
+  if (!sessionStorage.getItem("adminLogado")) {
+    window.location.href = "adminlogin.html";
+  }
+}
+
+/* =========================
+   INIT
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("productImage");
-  const preview = document.getElementById("imagePreview");
-
-  if (!input || !preview) return;
-
-  input.addEventListener("change", () => {
-    const file = input.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      preview.src = e.target.result;
-      preview.style.display = "block";
-    };
-
-    reader.readAsDataURL(file);
-  });
-
-  renderizarHome();
-  renderizarProdutos();
-  renderizarAdmin();
   atualizarBadge();
+
+  if (document.getElementById("homeProducts")) renderizarHome();
+  if (document.getElementById("productsContainer")) renderizarProdutos();
+
+  if (document.getElementById("adminProducts")) {
+    verificarLoginAdmin();
+    renderizarAdmin();
+  }
 });
