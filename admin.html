@@ -33,42 +33,42 @@
 
     <h1>Painel Admin</h1>
 
-    <form id="productForm" class="form-card">
+   <form id="productForm" class="form-card">
 
-      <label>Imagem</label>
-      <input type="file" id="productImage" required>
+  <label>Foto do produto</label>
+  <input type="file" id="productImage" accept=".png,.jpg,.jpeg" required>
 
-      <img id="imagePreview" style="display:none;max-width:200px;margin-top:10px">
+  <img id="imagePreview" style="display:none;max-width:200px;margin:15px 0;border-radius:12px;">
 
-      <label>Nome</label>
-      <input type="text" id="productName" required>
+  <label>Nome do produto</label>
+  <input type="text" id="productName" required>
 
-      <label>Marca</label>
-      <input type="text" id="productBrand">
+  <label>Marca</label>
+  <input type="text" id="productBrand">
 
-      <label>Categoria</label>
-      <input type="text" id="productCategory">
+  <label>Categoria</label>
+  <input type="text" id="productCategory">
 
-      <label>Descrição</label>
-      <input type="text" id="productDescription">
+  <label>Descrição</label>
+  <input type="text" id="productDescription">
 
-      <label>Preço</label>
-      <input type="number" id="productPrice" required>
+  <label>Preço</label>
+  <input type="number" id="productPrice" step="0.01" required>
 
-      <label>Promoção</label>
-      <input type="text" id="productPromo">
+  <label>Promoção</label>
+  <input type="text" id="productPromo">
 
-      <!-- ⭐ NOVO -->
-      <label style="display:flex;gap:10px;align-items:center;">
-        <input type="checkbox" id="productDestaque">
-        Marcar como destaque
-      </label>
+  <!-- 🔥 NOVO CAMPO -->
+  <label style="display:flex;gap:10px;align-items:center;margin-top:10px;">
+    <input type="checkbox" id="productDestaque">
+    Marcar como destaque
+  </label>
 
-      <button class="btn-buy" type="submit">
-        SALVAR PRODUTO
-      </button>
+  <button class="btn-buy" type="submit">
+    SALVAR PRODUTO
+  </button>
 
-    </form>
+</form>
 
   </div>
 
