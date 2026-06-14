@@ -13,7 +13,6 @@
 <body>
 
 <!-- HEADER -->
-
 <header class="header">
 
     <div class="header-inner">
@@ -22,7 +21,7 @@
 
             <div class="logo-circle">
 
-                <span class="logo-vv">Vv</span>
+                <span class="logo-vv">V.V</span>
 
                 <span class="logo-imp">IMPORTS</span>
 
@@ -52,100 +51,72 @@
 
         <div class="admin-header">
 
-            <h1>
-
-                Painel Admin
-
-            </h1>
+            <h1>Painel Admin</h1>
 
         </div>
 
         <form id="productForm" class="form-card">
 
-            <label>
-
-                Foto do produto
-
-            </label>
+            <label>Foto do produto</label>
 
             <input
-            type="file"
-            id="productImage"
-            accept=".png,.jpg,.jpeg"
-            required>
+                type="file"
+                id="productImage"
+                accept=".png,.jpg,.jpeg"
+                required>
 
-            <label>
+            <img
+                id="imagePreview"
+                style="display:none;max-width:200px;margin:15px 0;border-radius:12px;">
 
-                Nome do produto
-
-            </label>
-
-            <input
-            type="text"
-            id="productName"
-            placeholder="Nike Air Max"
-            required>
-
-            <label>
-
-                Marca
-
-            </label>
+            <label>Nome do produto</label>
 
             <input
-            type="text"
-            id="productBrand"
-            placeholder="Nike">
+                type="text"
+                id="productName"
+                placeholder="Nike Air Max"
+                required>
 
-            <label>
-
-                Categoria
-
-            </label>
+            <label>Marca</label>
 
             <input
-            type="text"
-            id="productCategory"
-            placeholder="Sneaker">
+                type="text"
+                id="productBrand"
+                placeholder="Nike">
 
-            <label>
-
-                Descrição
-
-            </label>
+            <label>Categoria</label>
 
             <input
-            type="text"
-            id="productDescription"
-            placeholder="Tênis importado premium">
+                type="text"
+                id="productCategory"
+                placeholder="Sneaker">
 
-            <label>
-
-                Preço
-
-            </label>
+            <label>Descrição</label>
 
             <input
-            type="number"
-            id="productPrice"
-            placeholder="699.90"
-            step="0.01"
-            required>
+                type="text"
+                id="productDescription"
+                placeholder="Tênis importado premium">
 
-            <label>
-
-                Promoção
-
-            </label>
+            <label>Preço</label>
 
             <input
-            type="text"
-            id="productPromo"
-            placeholder="10% OFF">
+                type="number"
+                id="productPrice"
+                placeholder="699.90"
+                step="0.01"
+                required>
+
+            <label>Promoção</label>
+
+            <input
+                type="text"
+                id="productPromo"
+                placeholder="10% OFF">
 
             <button
-            class="btn-buy"
-            type="submit">
+                class="btn-buy"
+                type="submit">
 
                 SALVAR PRODUTO
 
@@ -180,8 +151,8 @@
         </div>
 
         <div
-        class="products-grid"
-        id="adminProducts">
+            class="products-grid"
+            id="adminProducts">
 
         </div>
 
@@ -196,9 +167,7 @@
     <div class="footer-bottom">
 
         <p>
-
             © 2025 V.V Imports
-
         </p>
 
     </div>
