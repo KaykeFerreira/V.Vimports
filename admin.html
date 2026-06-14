@@ -1,178 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - V.V Imports</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — V.V Imports</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<!-- HEADER -->
 <header class="header">
+  <div class="header-inner">
 
-    <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="logo.jpg" class="logo-img">
+    </a>
 
-        <a href="index.html" class="logo">
+    <nav class="nav">
+      <a class="nav-link" href="index.html">Início</a>
+      <a class="nav-link" href="loja.html">Loja</a>
+      <a class="nav-link" href="admin.html">Admin</a>
+    </nav>
 
-            <div class="logo-circle">
-
-                <span class="logo-vv">V.V</span>
-
-                <span class="logo-imp">IMPORTS</span>
-
-            </div>
-
-        </a>
-
-        <nav class="nav">
-
-            <a class="nav-link" href="index.html">Início</a>
-
-            <a class="nav-link" href="loja.html">Loja</a>
-
-            <a class="nav-link" href="admin.html">Admin</a>
-
-        </nav>
-
-    </div>
-
+  </div>
 </header>
-
-<!-- ADMIN -->
 
 <section class="page-admin">
 
-    <div class="admin-card">
+  <div class="admin-card">
 
-        <div class="admin-header">
+    <h1>Painel Admin</h1>
 
-            <h1>Painel Admin</h1>
+    <form id="productForm" class="form-card">
 
-        </div>
+      <label>Imagem</label>
+      <input type="file" id="productImage" required>
 
-        <form id="productForm" class="form-card">
+      <img id="imagePreview" style="display:none;max-width:200px;margin-top:10px">
 
-            <label>Foto do produto</label>
+      <label>Nome</label>
+      <input type="text" id="productName" required>
 
-            <input
-                type="file"
-                id="productImage"
-                accept=".png,.jpg,.jpeg"
-                required>
+      <label>Marca</label>
+      <input type="text" id="productBrand">
 
-            <img
-                id="imagePreview"
-                style="display:none;max-width:200px;margin:15px 0;border-radius:12px;">
+      <label>Categoria</label>
+      <input type="text" id="productCategory">
 
-            <label>Nome do produto</label>
+      <label>Descrição</label>
+      <input type="text" id="productDescription">
 
-            <input
-                type="text"
-                id="productName"
-                placeholder="Nike Air Max"
-                required>
+      <label>Preço</label>
+      <input type="number" id="productPrice" required>
 
-            <label>Marca</label>
+      <label>Promoção</label>
+      <input type="text" id="productPromo">
 
-            <input
-                type="text"
-                id="productBrand"
-                placeholder="Nike">
+      <!-- ⭐ NOVO -->
+      <label style="display:flex;gap:10px;align-items:center;">
+        <input type="checkbox" id="productDestaque">
+        Marcar como destaque
+      </label>
 
-            <label>Categoria</label>
+      <button class="btn-buy" type="submit">
+        SALVAR PRODUTO
+      </button>
 
-            <input
-                type="text"
-                id="productCategory"
-                placeholder="Sneaker">
+    </form>
 
-            <label>Descrição</label>
-
-            <input
-                type="text"
-                id="productDescription"
-                placeholder="Tênis importado premium">
-
-            <label>Preço</label>
-
-            <input
-                type="number"
-                id="productPrice"
-                placeholder="699.90"
-                step="0.01"
-                required>
-
-            <label>Promoção</label>
-
-            <input
-                type="text"
-                id="productPromo"
-                placeholder="10% OFF">
-
-            <button
-                class="btn-buy"
-                type="submit">
-
-                SALVAR PRODUTO
-
-            </button>
-
-        </form>
-
-    </div>
+  </div>
 
 </section>
-
-<!-- PRODUTOS CADASTRADOS -->
 
 <section class="section">
+  <div class="section-inner">
 
-    <div class="section-inner">
+    <h2 class="section-title">PRODUTOS</h2>
 
-        <div class="section-head">
+    <div class="products-grid" id="adminProducts"></div>
 
-            <div class="section-title-wrap">
-
-                <div class="section-bar"></div>
-
-                <h2 class="section-title">
-
-                    PRODUTOS CADASTRADOS
-
-                </h2>
-
-            </div>
-
-        </div>
-
-        <div
-            class="products-grid"
-            id="adminProducts">
-
-        </div>
-
-    </div>
-
+  </div>
 </section>
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-    <div class="footer-bottom">
-
-        <p>
-            © 2025 V.V Imports
-        </p>
-
-    </div>
-
-</footer>
 
 <script src="script.js"></script>
 
