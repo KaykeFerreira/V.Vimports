@@ -1,655 +1,412 @@
 /* =========================
-   VC IMPORTS — styles.css
-   Versão corrigida e completa
+   VV IMPORTS — SCRIPT.JS
+   VERSÃO FINAL LIMPA E ORGANIZADA
 ========================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-:root{
-  --bg:#150608;
-  --bg2:#1d0b0d;
-  --card:#201214;
-  --red:#C92A23;
-  --red-dark:#6A0A0B;
-  --gray:#98909B;
-  --white:#ffffff;
-}
-
-*{ margin:0; padding:0; box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
-body{ background:var(--bg); color:var(--white); font-family:'Inter',sans-serif; overflow-x:hidden; }
-a{ text-decoration:none; color:inherit; }
-img{ max-width:100%; display:block; }
-button{ border:none; outline:none; cursor:pointer; font-family:'Inter',sans-serif; }
-
-/* ── HEADER ─────────────── */
-.header{
-  position:fixed; width:100%; top:0; left:0; z-index:1000;
-  background:rgba(21,6,8,.85); backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.header-inner{
-  max-width:1400px; height:90px; margin:auto;
-  display:flex; align-items:center; justify-content:space-between; padding:0 40px;
-}
-
-/* ── LOGO ─────────────── */
-.logo{ display:flex; align-items:center; gap:15px; }
-.logo-circle{
-  width:70px; height:70px; border-radius:50%; background:var(--red);
-  display:flex; flex-direction:column; justify-content:center; align-items:center;
-  box-shadow:0 0 25px rgba(201,42,35,.4);
-}
-.logo-vc{ font-family:'Bebas Neue'; font-size:28px; line-height:1; }
-.logo-imp{ font-size:10px; letter-spacing:2px; }
-
-/* ── NAV ─────────────── */
-.nav{ display:flex; gap:40px; }
-.nav-link{ position:relative; font-size:15px; font-weight:500; transition:.3s; }
-.nav-link:hover{ color:var(--red); }
-.nav-link::after{
-  content:""; position:absolute; left:0; bottom:-8px;
-  width:0; height:2px; background:var(--red); transition:.3s;
-}
-.nav-link:hover::after{ width:100%; }
-
-/* ── HEADER ACTIONS ─────────────── */
-.header-actions{ display:flex; align-items:center; gap:20px; }
-.cart-btn{
-  width:55px; height:55px; border-radius:50%;
-  background:rgba(255,255,255,.05); color:white; position:relative; transition:.3s;
-  font-size:20px;
-}
-.cart-btn:hover{ background:var(--red); transform:translateY(-4px); }
-.cart-badge{
-  position:absolute; top:-5px; right:-5px;
-  width:22px; height:22px; border-radius:50%; background:var(--red);
-  display:flex; align-items:center; justify-content:center;
-  font-size:12px; font-weight:700;
-}
-
-/* ── HAMBURGER ─────────────── */
-.hamburger{
-  width:55px; height:55px; border-radius:50%;
-  background:rgba(255,255,255,.05);
-  display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px;
-}
-.hamburger span{ width:22px; height:2px; background:white; border-radius:2px; }
-
-/* ── HERO ─────────────── */
 /* =========================
-   HERO (CORRIGIDO + SLIDER OK)
+   ESTADO
 ========================= */
 
-.hero{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:80px 10%;
-  min-height:90vh;
-  background: radial-gradient(circle at top, #111 0%, #000 60%);
-  overflow:hidden;
-  position:relative;
-}
+let produtos = JSON.parse(localStorage.getItem("produtosVV")) || [];
+let carrinho = JSON.parse(localStorage.getItem("carrinhoVV")) || [];
 
-/* TEXTO */
-.hero-content{
-  max-width:520px;
-  z-index:2;
-}
+/* =========================
+   PERSISTÊNCIA
+========================= */
 
-.hero-eyebrow{
-  color:#aaa;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  font-size:12px;
+function salvarProdutos() {
+  localStorage.setItem("produtosVV", JSON.stringify(produtos));
 }
 
-.hero-title{
-  font-size:64px;
-  font-family:'Bebas Neue', sans-serif;
-  line-height:1;
-  color:#fff;
+function salvarCarrinho() {
+  localStorage.setItem("carrinhoVV", JSON.stringify(carrinho));
 }
 
-.hero-red{
-  color:#ff2d2d;
-  text-shadow:0 0 20px rgba(255,45,45,0.6);
-}
+/* =========================
+   UTILITÁRIOS
+========================= */
 
-.hero-sub{
-  margin-top:15px;
-  color:#bbb;
-  font-size:16px;
+function formatarPreco(valor) {
+  return Number(valor).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
 }
 
-/* BOTÃO (MANTIDO LIMPO) */
-.btn-hero{
-  display:inline-block;
-  margin-top:25px;
-  padding:14px 28px;
-  background:#ff2d2d;
-  color:#fff;
-  font-weight:600;
-  text-decoration:none;
-  border-radius:8px;
-  transition:0.3s;
-  box-shadow:0 0 25px rgba(255,45,45,0.3);
-}
+function mostrarToast(texto) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
 
-.btn-hero:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 35px rgba(255,45,45,0.5);
-}
+  toast.textContent = texto;
+  toast.classList.add("show");
 
-/* SLIDER CONTAINER */
-.hero-slider{
-  position:relative;
-  width:520px;
-  height:420px;
-  z-index:2;
+  setTimeout(() => toast.classList.remove("show"), 2500);
 }
 
-/* IMAGENS DO SLIDER */
-.hero-shoe{
-  position:absolute;
-  width:100%;
-  opacity:0;
-  transform:rotate(-12deg) scale(0.95);
-  transition:all 0.8s ease;
-  filter:drop-shadow(0 30px 40px rgba(0,0,0,0.7));
-}
+/* =========================
+   CARRINHO
+========================= */
 
-/* ATIVAÇÃO JS */
-.hero-shoe.active{
-  opacity:1;
-  transform:rotate(-12deg) scale(1);
-}
+function atualizarBadge() {
+  const total = carrinho.reduce((acc, i) => acc + i.quantidade, 0);
 
-/* GLOW */
-.hero-glow{
-  position:absolute;
-  width:320px;
-  height:320px;
-  background:radial-gradient(circle, rgba(255,45,45,0.5), transparent 70%);
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  filter:blur(50px);
-  z-index:-1;
+  document.querySelectorAll(".cart-badge").forEach(badge => {
+    badge.textContent = total;
+  });
 }
 
-/* ── BOTÕES ─────────────── */
-.btn-hero{
-  width:220px; height:65px; background:var(--red); border-radius:50px;
-  color:white; display:inline-flex; justify-content:center; align-items:center;
-  font-weight:600; transition:.3s;
-}
-.btn-hero:hover{ transform:translateY(-8px); background:#ff2d2d; box-shadow:0 0 40px rgba(255,0,0,.4); }
-
-.btn-buy{
-  width:100%; height:54px; border-radius:50px; background:var(--red);
-  color:white; font-size:15px; font-weight:600; transition:.3s; letter-spacing:.5px;
-}
-.btn-buy:hover{ background:#ff2a2a; box-shadow:0 0 35px rgba(255,0,0,.5); }
-
-.btn-details{
-  width:100%; height:54px; border-radius:50px;
-  background:transparent; border:1px solid rgba(255,255,255,.2);
-  color:white; font-size:15px; font-weight:500; transition:.3s;
-}
-.btn-details:hover{ border-color:var(--red); color:var(--red); }
-
-.btn-delete{
-  width:100%; height:54px; border-radius:50px;
-  background:transparent; border:1px solid rgba(201,42,35,.5);
-  color:var(--red); font-size:15px; font-weight:500; transition:.3s;
-}
-.btn-delete:hover{ background:var(--red); color:white; }
-
-.btn-outline{
-  padding:16px 30px; border:1px solid rgba(255,255,255,.1);
-  border-radius:50px; font-size:14px; color:white; transition:.3s;
-}
-.btn-outline:hover{ background:var(--red); border-color:var(--red); }
-
-/* ── BADGES ─────────────── */
-.badges{ padding:0 40px 100px; }
-.badges-inner{
-  max-width:1400px; margin:auto;
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:25px;
-}
-.badge-item{
-  background:var(--card); border:1px solid rgba(255,255,255,.06);
-  border-radius:30px; padding:30px;
-  display:flex; align-items:center; gap:20px; transition:.3s;
-}
-.badge-item:hover{ transform:translateY(-10px); border-color:rgba(201,42,35,.3); box-shadow:0 0 40px rgba(201,42,35,.2); }
-.badge-item strong{ display:block; font-size:15px; margin-bottom:8px; letter-spacing:1px; }
-.badge-item span{ color:#a4a4a4; font-size:14px; line-height:1.6; }
-
-/* ── SEÇÃO ─────────────── */
-.section{ padding:120px 40px; }
-.section-inner{ max-width:1400px; margin:auto; }
-.section-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:50px; }
-.section-title-wrap{ display:flex; flex-direction:column; }
-.section-bar{ width:80px; height:5px; background:var(--red); border-radius:20px; margin-bottom:15px; }
-.section-title{ font-family:'Bebas Neue'; font-size:55px; letter-spacing:2px; }
-
-/* ── GRID PRODUTOS ─────────────── */
-.products-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:30px;
-}
+function adicionarCarrinho(id, e) {
+  if (e) e.stopPropagation();
 
-/* ── CARD PRODUTO ─────────────── */
-.product-card{
-  background:var(--card); border-radius:28px; overflow:hidden;
-  position:relative; transition:.4s; border:1px solid rgba(255,255,255,.05);
-  cursor:pointer;
-}
-.product-card:hover{ transform:translateY(-12px); border-color:rgba(201,42,35,.3); box-shadow:0 0 50px rgba(201,42,35,.2); }
-
-.product-img-wrap{ overflow:hidden; height:260px; background:#180d0e; }
-.product-img-wrap img{ width:100%; height:100%; object-fit:cover; transition:transform .4s; }
-.product-card:hover .product-img-wrap img{ transform:scale(1.05); }
-
-.product-info{ padding:22px; }
-.product-brand{ font-size:12px; color:var(--red); letter-spacing:2px; text-transform:uppercase; font-weight:600; }
-.product-name{ font-size:20px; font-weight:700; margin:8px 0 10px; }
-.product-description{ color:#a7a7a7; line-height:1.7; font-size:14px; margin-bottom:18px; min-height:44px; }
-.product-price{ font-size:32px; color:var(--red); font-weight:700; margin-bottom:18px; }
-.product-badge{
-  position:absolute; top:18px; left:18px;
-  background:var(--red); color:white;
-  padding:8px 16px; border-radius:30px; font-size:12px; font-weight:700; z-index:5;
-}
-.product-buttons{ display:flex; flex-direction:column; gap:10px; }
-
-/* ── EMPTY ─────────────── */
-.empty-msg{ color:#888; font-size:16px; grid-column:1/-1; padding:40px 0; text-align:center; }
-
-/* ── BUSCA ─────────────── */
-.shop-controls{ margin-bottom:40px; }
-#searchInput{
-  width:100%; max-width:500px; height:60px;
-  background:#1d0d0f; border:1px solid rgba(255,255,255,.08);
-  border-radius:50px; padding:0 25px; color:white; font-size:16px;
-  outline:none; transition:.3s;
-}
-#searchInput:focus{ border-color:var(--red); box-shadow:0 0 20px rgba(201,42,35,.15); }
-#searchInput::placeholder{ color:#666; }
-
-/* ── CARRINHO DRAWER ─────────────── */
-.cart-overlay{
-  position:fixed; inset:0; background:rgba(0,0,0,.75);
-  opacity:0; visibility:hidden; transition:.3s; z-index:999;
-}
-.cart-overlay.active{ opacity:1; visibility:visible; }
-
-.cart-drawer{
-  position:fixed; right:-460px; top:0; width:430px; max-width:100%; height:100vh;
-  background:#130609; z-index:1000; transition:.4s cubic-bezier(.4,0,.2,1);
-  display:flex; flex-direction:column;
-  border-left:1px solid rgba(255,255,255,.07);
-}
-.cart-drawer.active{ right:0; }
-
-.cart-header{
-  padding:25px 25px 20px;
-  display:flex; justify-content:space-between; align-items:center;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.cart-header h3{ font-size:22px; font-weight:700; }
-.cart-close{ background:none; color:white; font-size:32px; line-height:1; }
-
-.cart-items{ flex:1; overflow-y:auto; padding:20px 25px; }
-.cart-items::-webkit-scrollbar{ width:4px; }
-.cart-items::-webkit-scrollbar-track{ background:transparent; }
-.cart-items::-webkit-scrollbar-thumb{ background:var(--red-dark); border-radius:4px; }
-
-.cart-empty{ text-align:center; padding:60px 20px; color:#666; }
-.cart-empty span{ font-size:48px; display:block; margin-bottom:15px; }
-
-.cart-item{ display:flex; gap:15px; background:var(--card); padding:15px; border-radius:18px; margin-bottom:15px; }
-.cart-item img{ width:85px; height:85px; object-fit:cover; border-radius:12px; flex-shrink:0; }
-.cart-item-info{ flex:1; min-width:0; }
-.cart-item-name{ font-size:15px; font-weight:600; margin-bottom:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.cart-item-price{ color:var(--red); font-weight:700; font-size:16px; margin-bottom:10px; }
-
-.cart-qty{ display:flex; align-items:center; gap:12px; }
-.qty-btn{
-  width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.08);
-  color:white; font-size:18px; display:flex; align-items:center; justify-content:center; transition:.2s;
-}
-.qty-btn:hover{ background:var(--red); }
-.cart-qty span{ font-size:16px; font-weight:600; min-width:20px; text-align:center; }
-
-.cart-footer{ padding:20px 25px 25px; border-top:1px solid rgba(255,255,255,.08); }
-.cart-total{ display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:17px; }
-.cart-total strong{ color:var(--red); font-size:26px; }
-.btn-checkout{
-  width:100%; height:58px; border-radius:50px; background:var(--red);
-  color:white; font-size:16px; font-weight:700; transition:.3s; letter-spacing:.5px;
-}
-.btn-checkout:hover{ background:#ff2a2a; box-shadow:0 0 30px rgba(255,0,0,.4); }
-
-/* ── MODAL PRODUTO ─────────────── */
-.modal-overlay{
-  position:fixed; inset:0; background:rgba(0,0,0,.8);
-  opacity:0; visibility:hidden; transition:.3s; z-index:1001;
-  display:flex; align-items:center; justify-content:center; padding:20px;
-}
-.modal-overlay.active{ opacity:1; visibility:visible; }
-
-.modal-box{
-  width:900px; max-width:100%; background:#160810;
-  border-radius:30px; overflow:hidden;
-  transform:scale(.85); opacity:0; transition:.3s; z-index:1002;
-  position:relative; border:1px solid rgba(255,255,255,.07);
-  max-height:90vh; overflow-y:auto;
-}
-.modal-box.active{ transform:scale(1); opacity:1; }
-
-.modal-close{
-  position:absolute; right:20px; top:20px;
-  background:rgba(0,0,0,.5); color:white; font-size:28px;
-  width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  z-index:10; transition:.2s;
-}
-.modal-close:hover{ background:var(--red); }
+  const produto = produtos.find(p => p.id == id);
+  if (!produto) return;
 
-.modal-layout{ display:grid; grid-template-columns:1fr 1fr; }
+  const item = carrinho.find(i => i.id == id);
 
-.modal-img-wrap{ background:#130609; position:relative; min-height:350px; }
-.modal-image{ width:100%; height:100%; object-fit:cover; }
+  if (item) {
+    item.quantidade++;
+  } else {
+    carrinho.push({ ...produto, quantidade: 1 });
+  }
 
-.modal-details{ padding:40px; display:flex; flex-direction:column; justify-content:center; }
-.modal-brand{ font-size:12px; color:var(--red); letter-spacing:2px; text-transform:uppercase; font-weight:600; }
-.modal-category{
-  display:inline-block; margin-left:10px; font-size:11px; color:#888;
-  background:rgba(255,255,255,.05); padding:3px 10px; border-radius:20px;
-}
-.modal-title{ font-size:28px; font-weight:700; margin:12px 0 14px; line-height:1.2; }
-.modal-desc{ color:#aaa; line-height:1.8; font-size:15px; margin-bottom:24px; }
-.modal-price{ font-size:40px; color:var(--red); font-weight:700; margin-bottom:28px; }
-
-/* ── TOAST ─────────────── */
-.toast{
-  position:fixed; bottom:40px; right:40px;
-  background:#1d0d0f; border:1px solid var(--red);
-  color:white; padding:16px 24px; border-radius:18px;
-  font-size:15px; transform:translateY(100px); opacity:0; transition:.3s; z-index:2000;
-  box-shadow:0 0 30px rgba(201,42,35,.3);
-}
-.toast.show{ transform:translateY(0); opacity:1; }
-
-/* ── BANNER PROMO ─────────────── */
-.promo-banner{
-  margin-top:80px; background:linear-gradient(135deg,#1d0b0d,#2d0e12);
-  border-radius:40px; padding:80px; position:relative; overflow:hidden;
-}
-.promo-banner::before{
-  content:""; position:absolute;
-  width:500px; height:500px; background:rgba(201,42,35,.2);
-  border-radius:50%; filter:blur(150px); right:-100px; top:-100px;
-}
-.promo-content{ position:relative; z-index:2; }
-.promo-title{ font-family:'Bebas Neue'; font-size:90px; line-height:.9; margin-bottom:20px; }
-.promo-title span{ color:var(--red); }
-.promo-text{ color:#c8c8c8; font-size:18px; margin-bottom:40px; }
-.btn-promo{ width:230px; height:60px; border-radius:50px; background:var(--red); color:white; font-weight:700; transition:.3s; }
-.btn-promo:hover{ transform:translateY(-8px); box-shadow:0 0 40px rgba(255,0,0,.4); }
-
-/* ── ADMIN LOGIN ─────────────── */
-.page-login{
-  min-height:100vh; display:flex; align-items:center; justify-content:center;
-  padding:40px 20px;
-}
-.login-card{
-  width:100%; max-width:460px; background:var(--card);
-  border-radius:35px; padding:50px; border:1px solid rgba(255,255,255,.06);
-}
-.login-card h1{ font-family:'Bebas Neue'; font-size:48px; margin-bottom:8px; }
-.login-card p{ color:#888; margin-bottom:35px; font-size:15px; }
-.form-group{ display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
-.form-group label{ font-size:13px; color:#aaa; }
-.form-group input{
-  height:56px; background:#2b1518; border:1px solid rgba(255,255,255,.06);
-  border-radius:18px; padding:0 20px; color:white; font-size:15px; outline:none; transition:.3s;
-}
-.form-group input:focus{ border-color:var(--red); }
-.login-error{
-  display:none; background:rgba(201,42,35,.15); border:1px solid rgba(201,42,35,.3);
-  color:#ff8080; padding:14px 18px; border-radius:15px; font-size:14px; margin-bottom:20px;
+  salvarCarrinho();
+  atualizarBadge();
+  mostrarToast("Produto adicionado ao carrinho!");
 }
 
-/* ── ADMIN PANEL ─────────────── */
-.page-admin{ max-width:1400px; margin:auto; padding:130px 30px 80px; }
-.admin-topbar{
-  display:flex; justify-content:space-between; align-items:center;
-  margin-bottom:40px;
-}
-.admin-topbar h1{ font-family:'Bebas Neue'; font-size:52px; }
-.btn-logout{
-  padding:12px 24px; border-radius:50px; background:rgba(201,42,35,.15);
-  border:1px solid rgba(201,42,35,.4); color:var(--red); font-weight:600; transition:.3s;
-}
-.btn-logout:hover{ background:var(--red); color:white; }
+function removerCarrinho(id) {
+  const item = carrinho.find(p => p.id == id);
+  if (!item) return;
 
-.admin-grid{ display:grid; grid-template-columns:420px 1fr; gap:40px; align-items:start; }
+  if (item.quantidade > 1) {
+    item.quantidade--;
+  } else {
+    carrinho = carrinho.filter(p => p.id != id);
+  }
 
-.admin-form-card{
-  background:var(--card); border-radius:30px; padding:40px;
-  border:1px solid rgba(255,255,255,.05); position:sticky; top:110px;
-}
-.admin-form-card h2{ font-family:'Bebas Neue'; font-size:36px; margin-bottom:30px; }
-
-.form-card{ display:flex; flex-direction:column; gap:18px; }
-.form-card label{ font-size:13px; color:#bdbdbd; margin-bottom:-10px; }
-.form-card input, .form-card textarea{
-  width:100%; background:#2b1518; border:1px solid rgba(255,255,255,.06);
-  border-radius:16px; padding:14px 18px; color:white; font-size:14px; outline:none; transition:.3s;
+  salvarCarrinho();
+  atualizarBadge();
+  renderizarCarrinho();
 }
-.form-card input:focus, .form-card textarea:focus{ border-color:var(--red); }
-.form-card input[type="file"]{ padding:12px 18px; }
-.form-card textarea{ resize:vertical; min-height:80px; }
-
-#imagePreview{
-  display:none; width:100%; max-height:200px; object-fit:cover;
-  border-radius:16px; margin-top:5px;
+
+/* =========================
+   RENDER CARRINHO
+========================= */
+
+function renderizarCarrinho() {
+  const container = document.getElementById("cartItems");
+  const totalEl = document.getElementById("cartTotal");
+  if (!container) return;
+
+  if (carrinho.length === 0) {
+    container.innerHTML = `
+      <div class="cart-empty">
+        <span>🛒</span>
+        <p>Seu carrinho está vazio.</p>
+      </div>
+    `;
+    if (totalEl) totalEl.textContent = formatarPreco(0);
+    return;
+  }
+
+  let total = 0;
+  container.innerHTML = "";
+
+  carrinho.forEach(item => {
+    total += item.preco * item.quantidade;
+
+    container.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.imagem}" alt="${item.nome}">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.nome}</div>
+          <div class="cart-item-price">${formatarPreco(item.preco)}</div>
+
+          <div class="cart-qty">
+            <button class="qty-btn" onclick="removerCarrinho(${item.id})">−</button>
+            <span>${item.quantidade}</span>
+            <button class="qty-btn" onclick="adicionarCarrinho(${item.id}, event)">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  if (totalEl) totalEl.textContent = formatarPreco(total);
 }
 
-.admin-products-section h2{ font-family:'Bebas Neue'; font-size:40px; margin-bottom:30px; }
+/* =========================
+   DRAWER CARRINHO
+========================= */
 
-/* ── FOOTER ─────────────── */
-.footer{ margin-top:100px; border-top:1px solid rgba(255,255,255,.06); }
-.footer-top{
-  max-width:1400px; margin:auto; padding:80px 30px;
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px;
+function abrirCarrinho() {
+  document.getElementById("cartDrawer")?.classList.add("active");
+  document.getElementById("cartOverlay")?.classList.add("active");
+  renderizarCarrinho();
 }
-.footer-badge{ display:flex; gap:20px; align-items:center; }
-.footer-badge strong{ display:block; margin-bottom:10px; }
-.footer-badge span{ color:#999; }
-.footer-logo{ display:flex; justify-content:center; align-items:center; }
-.footer-logo-text{ font-family:'Bebas Neue'; font-size:55px; }
-.footer-logo-text em{ color:var(--red); font-style:normal; }
-.footer-bottom{
-  border-top:1px solid rgba(255,255,255,.06); padding:30px;
-  display:flex; justify-content:space-between; align-items:center; color:#888;
+
+function fecharCarrinho() {
+  document.getElementById("cartDrawer")?.classList.remove("active");
+  document.getElementById("cartOverlay")?.classList.remove("active");
 }
-.footer-admin-link{ color:var(--red); font-size:14px; }
-.footer-admin-link:hover{ text-decoration:underline; }
-
-/* ── ANIMAÇÕES ─────────────── */
-@keyframes fadeUp{
-  from{ opacity:0; transform:translateY(30px); }
-  to{ opacity:1; transform:translateY(0); }
+
+function finalizarCompra() {
+  if (carrinho.length === 0) {
+    mostrarToast("Seu carrinho está vazio!");
+    return;
+  }
+
+  alert("Pedido realizado com sucesso!");
+
+  carrinho = [];
+  salvarCarrinho();
+  atualizarBadge();
+  renderizarCarrinho();
+  fecharCarrinho();
 }
-.product-card{ animation:fadeUp .6s ease both; }
 
-/* ── BOTÃO ADMIN FLUTUANTE ─────────────── */
+/* =========================
+   MODAL
+========================= */
 
-.floating-admin{
-    position:fixed;
-    bottom:25px;
-    left:25px;
+function abrirProduto(id, e) {
+  if (e) e.stopPropagation();
 
-    background:var(--red);
-    color:white;
+  const produto = produtos.find(p => p.id == id);
+  if (!produto) return;
 
-    padding:14px 22px;
-    border-radius:50px;
+  const overlay = document.getElementById("modalOverlay");
+  const content = document.getElementById("modalContent");
+  const box = document.getElementById("modalBox");
 
-    font-size:15px;
-    font-weight:600;
+  content.innerHTML = `
+    <div class="modal-layout">
+      <div class="modal-img-wrap">
+        <img src="${produto.imagem}" class="modal-image">
+      </div>
 
-    z-index:2000;
+      <div class="modal-details">
+        <h2 class="modal-title">${produto.nome}</h2>
+        <p class="modal-desc">${produto.descricao || ""}</p>
 
-    box-shadow:0 0 25px rgba(201,42,35,.4);
+        <div class="modal-price">${formatarPreco(produto.preco)}</div>
 
-    transition:.3s;
-}
+        <button class="btn-buy" onclick="adicionarCarrinho(${produto.id}, event)">
+          ADICIONAR AO CARRINHO
+        </button>
+      </div>
+    </div>
+  `;
 
-.floating-admin:hover{
-    transform:translateY(-5px);
-    background:#ff2a2a;
+  overlay.classList.add("active");
+  box.classList.add("active");
 }
 
-/* ── RESPONSIVO ─────────────── */
-@media(max-width:900px){
-  .admin-grid{ grid-template-columns:1fr; }
-  .admin-form-card{ position:static; }
-  .modal-layout{ grid-template-columns:1fr; }
-  .modal-img-wrap{ min-height:280px; }
+function fecharModal() {
+  document.getElementById("modalOverlay")?.classList.remove("active");
+  document.getElementById("modalBox")?.classList.remove("active");
 }
 
-@media(max-width:768px){
-  .nav{ display:none; position:absolute; top:90px; left:0; right:0; flex-direction:column;
-        background:rgba(21,6,8,.97); padding:20px 30px; gap:20px; border-bottom:1px solid rgba(255,255,255,.08); }
-  .nav.open{ display:flex; }
-  .hamburger{ display:flex; }
-  .hero{ flex-direction:column; text-align:center; padding-top:130px; }
-  .hero-title{ font-size:72px; }
-  .hero-sub{ font-size:16px; }
-  .section{ padding:80px 20px; }
-  .section-title{ font-size:45px; }
-  .section-head{ flex-direction:column; gap:20px; }
-  .badges{ padding:0 20px 60px; }
-  .promo-banner{ padding:50px 30px; }
-  .promo-title{ font-size:60px; }
-  .footer-bottom{ flex-direction:column; gap:15px; text-align:center; }
-}
+/* =========================
+   CARD PRODUTO
+========================= */
 
-@media(max-width:500px){
-  .hero-title{ font-size:54px; }
-  .header-inner{ padding:0 20px; }
-  .cart-drawer{ width:100%; }
-  .toast{ right:15px; left:15px; bottom:20px; }
-  .login-card{ padding:35px 25px; }
-  .admin-form-card{ padding:25px 20px; }
-}
+function gerarCardProduto(produto, admin = false) {
+  return `
+    <div class="product-card" onclick="abrirProduto(${produto.id}, event)">
 
-.logo{
-    display: flex;
-    align-items: center;
-}
+      ${produto.destaque ? `<div class="product-badge">Destaque</div>` : ""}
 
-.logo-img{
-    height: 70px;      /* ajuste conforme necessário */
-    width: auto;
-    object-fit: contain;
-}
-.hero{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:80px 10%;
-  min-height:90vh;
-  background: radial-gradient(circle at top, #111 0%, #000 60%);
-  overflow:hidden;
-  position:relative;
-}
+      <div class="product-img-wrap">
+        <img src="${produto.imagem}">
+      </div>
 
-/* TEXTO */
-.hero-content{
-  max-width:520px;
-  z-index:2;
-}
+      <div class="product-info">
+        <h3 class="product-name">${produto.nome}</h3>
+        <p class="product-description">${produto.descricao || ""}</p>
+
+        <div class="product-price">${formatarPreco(produto.preco)}</div>
 
-.hero-eyebrow{
-  color:#aaa;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  font-size:12px;
+        <div class="product-buttons">
+          <button class="btn-details" onclick="abrirProduto(${produto.id}, event)">
+            VER MAIS
+          </button>
+
+          ${
+            admin
+              ? `<button class="btn-delete" onclick="excluirProduto(${produto.id}, event)">EXCLUIR</button>`
+              : `<button class="btn-buy" onclick="adicionarCarrinho(${produto.id}, event)">COMPRAR</button>`
+          }
+        </div>
+      </div>
+    </div>
+  `;
 }
+
+/* =========================
+   HOME (DESTAQUES REAIS)
+========================= */
+
+function renderizarHome() {
+  const container = document.getElementById("homeProducts");
+  if (!container) return;
+
+  const destaques = produtos.filter(p => p.destaque === true);
+
+  container.innerHTML = "";
 
-.hero-title{
-  font-size:64px;
-  font-family:'Bebas Neue', sans-serif;
-  line-height:1;
-  color:#fff;
+  if (destaques.length === 0) {
+    container.innerHTML = `<p class="empty-msg">Nenhum destaque disponível.</p>`;
+    return;
+  }
+
+  destaques.forEach(p => {
+    container.innerHTML += gerarCardProduto(p);
+  });
 }
+
+/* =========================
+   LOJA
+========================= */
+
+function renderizarProdutos(lista) {
+  const container = document.getElementById("productsContainer");
+  if (!container) return;
+
+  const dados = lista || produtos;
+
+  container.innerHTML = "";
+
+  if (dados.length === 0) {
+    container.innerHTML = `<p class="empty-msg">Nenhum produto encontrado.</p>`;
+    return;
+  }
 
-.hero-red{
-  color:#ff2d2d;
-  text-shadow:0 0 20px rgba(255,45,45,0.6);
+  dados.forEach(p => {
+    container.innerHTML += gerarCardProduto(p);
+  });
 }
 
-.hero-sub{
-  margin-top:15px;
-  color:#bbb;
-  font-size:16px;
+/* =========================
+   BUSCA
+========================= */
+
+function iniciarBusca() {
+  const input = document.getElementById("searchInput");
+  if (!input) return;
+
+  input.addEventListener("input", () => {
+    const texto = input.value.toLowerCase();
+
+    const filtrados = produtos.filter(p =>
+      p.nome.toLowerCase().includes(texto) ||
+      (p.marca && p.marca.toLowerCase().includes(texto)) ||
+      (p.categoria && p.categoria.toLowerCase().includes(texto))
+    );
+
+    renderizarProdutos(filtrados);
+  });
 }
+
+/* =========================
+   ADMIN
+========================= */
 
-/* BOTÃO */
-.btn-hero{
-  display:inline-block;
-  margin-top:25px;
-  padding:14px 28px;
-  background:#ff2d2d;
-  color:#fff;
-  font-weight:600;
-  text-decoration:none;
-  border-radius:8px;
-  transition:0.3s;
-  box-shadow:0 0 25px rgba(255,45,45,0.3);
+function renderizarAdmin() {
+  const container = document.getElementById("adminProducts");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (produtos.length === 0) {
+    container.innerHTML = `<p class="empty-msg">Nenhum produto cadastrado.</p>`;
+    return;
+  }
+
+  produtos.forEach(p => {
+    container.innerHTML += gerarCardProduto(p, true);
+  });
 }
+
+function excluirProduto(id, e) {
+  if (e) e.stopPropagation();
+
+  if (!confirm("Deseja excluir este produto?")) return;
+
+  produtos = produtos.filter(p => p.id != id);
+  salvarProdutos();
+  renderizarAdmin();
 
-.btn-hero:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 35px rgba(255,45,45,0.5);
+  mostrarToast("Produto removido!");
 }
 
-/* IMAGEM */
-.hero-img-wrap{
-  position:relative;
-  z-index:2;
+/* =========================
+   LOGIN ADMIN
+========================= */
+
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "vvimports2025";
+
+const loginForm = document.getElementById("adminLoginForm");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const user = document.getElementById("adminUser").value;
+    const pass = document.getElementById("adminPass").value;
+
+    if (user === ADMIN_USER && pass === ADMIN_PASS) {
+      sessionStorage.setItem("adminLogado", "true");
+      window.location.href = "admin.html";
+    } else {
+      document.getElementById("loginError").style.display = "block";
+    }
+  });
 }
 
-.hero-shoe{
-  width:520px;
-  transform:rotate(-12deg);
-  filter:drop-shadow(0 30px 40px rgba(0,0,0,0.7));
-  animation:float 4s ease-in-out infinite;
+function verificarLoginAdmin() {
+  if (!sessionStorage.getItem("adminLogado")) {
+    window.location.href = "adminlogin.html";
+  }
 }
 
-/* GLOW PREMIUM */
-.hero-glow{
-  position:absolute;
-  width:300px;
-  height:300px;
-  background:radial-gradient(circle, rgba(255,45,45,0.5), transparent 70%);
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  filter:blur(40px);
-  z-index:-1;
+function logoutAdmin() {
+  sessionStorage.removeItem("adminLogado");
+  window.location.href = "adminlogin.html";
 }
+
+/* =========================
+   MENU MOBILE
+========================= */
+
+document.getElementById("hamburger")?.addEventListener("click", () => {
+  document.querySelector(".nav")?.classList.toggle("open");
+});
+
+/* =========================
+   INIT
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("cartBtn")?.addEventListener("click", abrirCarrinho);
+  document.getElementById("cartClose")?.addEventListener("click", fecharCarrinho);
+  document.getElementById("cartOverlay")?.addEventListener("click", fecharCarrinho);
+  document.querySelector(".btn-checkout")?.addEventListener("click", finalizarCompra);
+
+  document.getElementById("modalClose")?.addEventListener("click", fecharModal);
+  document.getElementById("modalOverlay")?.addEventListener("click", fecharModal);
+
+  if (document.getElementById("homeProducts")) renderizarHome();
+  if (document.getElementById("productsContainer")) {
+    renderizarProdutos();
+    iniciarBusca();
+  }
+
+  if (document.getElementById("adminProducts")) {
+    verificarLoginAdmin();
+    renderizarAdmin();
+  }
 
-/* ANIMAÇÃO */
-@keyframes float{
-  0%,100%{ transform:translateY(0) rotate(-12deg); }
-  50%{ transform:translateY(-20px) rotate(-12deg); }
-} certo agr?
+  atualizarBadge();
+});
