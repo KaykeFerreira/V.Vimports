@@ -19,6 +19,7 @@ body{
   background:var(--bg);
   color:var(--text);
   overflow-x:hidden;
+  padding-top:80px;
 }
 
 /* HEADER */
@@ -26,7 +27,7 @@ body{
   position:fixed;
   top:0;
   width:100%;
-  background:rgba(0,0,0,.7);
+  background:rgba(0,0,0,.75);
   backdrop-filter:blur(10px);
   z-index:1000;
 }
@@ -44,7 +45,6 @@ body{
 /* LOGO */
 .logo-img{
   height:60px;
-  width:auto;
   object-fit:contain;
 }
 
@@ -55,10 +55,9 @@ body{
 }
 
 .nav-link{
-  color:var(--text);
+  color:#fff;
   text-decoration:none;
   font-size:14px;
-  transition:.3s;
 }
 
 .nav-link:hover{
@@ -67,7 +66,6 @@ body{
 
 /* HERO */
 .hero{
-  margin-top:80px;
   min-height:90vh;
   display:flex;
   align-items:center;
@@ -75,6 +73,7 @@ body{
   padding:60px 10%;
 }
 
+/* TITULOS */
 .hero-title{
   font-family:'Bebas Neue';
   font-size:60px;
@@ -86,10 +85,9 @@ body{
 
 .hero-sub{
   color:var(--muted);
-  margin-top:10px;
 }
 
-/* BOTÕES */
+/* BOTÃO */
 .btn-hero{
   display:inline-block;
   margin-top:20px;
@@ -98,31 +96,35 @@ body{
   color:#fff;
   border-radius:30px;
   text-decoration:none;
-  transition:.3s;
 }
 
-.btn-hero:hover{
-  transform:scale(1.05);
+/* BADGES HOME */
+.badges-inner{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  padding:40px 10%;
 }
 
-/* GRID PRODUTOS */
+.badge-item{
+  background:var(--card);
+  padding:20px;
+  border-radius:15px;
+}
+
+/* PRODUTOS */
 .products-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:20px;
+  padding:40px 10%;
 }
 
-/* CARD */
 .product-card{
   background:var(--card);
-  border-radius:20px;
+  border-radius:15px;
   overflow:hidden;
   position:relative;
-  transition:.3s;
-}
-
-.product-card:hover{
-  transform:translateY(-5px);
 }
 
 .product-img-wrap img{
@@ -137,21 +139,13 @@ body{
 
 .product-name{
   font-size:16px;
-  margin-bottom:5px;
-}
-
-.product-description{
-  font-size:13px;
-  color:var(--muted);
 }
 
 .product-price{
   color:var(--red);
-  font-weight:bold;
   margin:10px 0;
 }
 
-/* BADGE DESTAQUE */
 .product-badge{
   position:absolute;
   top:10px;
@@ -167,27 +161,10 @@ body{
 .btn-details,
 .btn-delete{
   width:100%;
+  margin-top:8px;
   padding:10px;
   border:none;
-  border-radius:20px;
-  margin-top:8px;
-  cursor:pointer;
-}
-
-.btn-buy{
-  background:var(--red);
-  color:#fff;
-}
-
-.btn-details{
-  background:transparent;
-  border:1px solid #333;
-  color:#fff;
-}
-
-.btn-delete{
-  background:#333;
-  color:#fff;
+  border-radius:10px;
 }
 
 /* CARRINHO */
@@ -195,7 +172,28 @@ body{
   background:var(--red);
   padding:2px 6px;
   border-radius:50%;
-  font-size:12px;
+}
+
+/* LOGIN ADMIN */
+.page-login{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.login-card{
+  background:var(--card);
+  padding:40px;
+  border-radius:20px;
+  width:100%;
+  max-width:400px;
+  text-align:center;
+}
+
+/* ADMIN */
+.page-admin{
+  padding:120px 10%;
 }
 
 /* RESPONSIVO */
@@ -203,7 +201,6 @@ body{
   .hero{
     flex-direction:column;
     text-align:center;
-    gap:30px;
   }
 
   .nav{
