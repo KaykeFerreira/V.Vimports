@@ -476,3 +476,28 @@ button{
   .hero-title{ font-size:48px; }
   .cart-drawer{ width:100%; }
 }
+
+.logo-img{
+  height:70px;
+  width:auto;
+  object-fit:contain;
+}
+
+.header-inner{
+  align-items:center;
+}
+
+.product-badge{
+  position:absolute;
+  top:15px;
+  left:15px;
+  background:#ff2d2d;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.product-card{
+  position:relative;
+}
