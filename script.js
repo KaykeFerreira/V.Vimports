@@ -1,5 +1,5 @@
 /* =========================
-   VC IMPORTS — script.js
+   VV IMPORTS — script.js
    Versão corrigida e completa
 ========================= */
 
@@ -32,19 +32,19 @@
    ESTADO
 ───────────────────────── */
 
-let produtos  = JSON.parse(localStorage.getItem("produtosVC"))  || [];
-let carrinho  = JSON.parse(localStorage.getItem("carrinhoVC"))  || [];
+let produtos  = JSON.parse(localStorage.getItem("produtosVV"))  || [];
+let carrinho  = JSON.parse(localStorage.getItem("carrinhoVV"))  || [];
 
 /* ─────────────────────────
    PERSISTÊNCIA LOCAL
 ───────────────────────── */
 
 function salvarProdutos(){
-  localStorage.setItem("produtosVC", JSON.stringify(produtos));
+  localStorage.setItem("produtosVV", JSON.stringify(produtos));
 }
 
 function salvarCarrinho(){
-  localStorage.setItem("carrinhoVC", JSON.stringify(carrinho));
+  localStorage.setItem("carrinhoVV", JSON.stringify(carrinho));
 }
 
 /* ─────────────────────────
@@ -407,7 +407,7 @@ if(productForm){
 // Credenciais salvas no localStorage (para uso local sem backend)
 // Para produção: use Firebase Auth ou similar
 const ADMIN_USER = "admin";
-const ADMIN_PASS = "vcimports2025";
+const ADMIN_PASS = "vvimports2025";
 
 function verificarLoginAdmin(){
   const logado = sessionStorage.getItem("adminLogado");
