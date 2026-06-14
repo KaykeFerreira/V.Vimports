@@ -409,10 +409,10 @@ if(productForm){
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "vvimports2025";
 
-function verificarLoginAdmin(){
+function verificarLoginAdmin() {
   const logado = sessionStorage.getItem("adminLogado");
 
-  if (!logado && window.location.pathname.includes("admin.html")) {
+  if (!logado) {
     window.location.href = "adminlogin.html";
   }
 }
@@ -423,10 +423,13 @@ if(loginForm){
     e.preventDefault();
     const user = document.getElementById("adminUser").value;
     const pass = document.getElementById("adminPass").value;
-    if(user === ADMIN_USER && pass === ADMIN_PASS){
-      sessionStorage.setItem("adminLogado", "true");
-      window.location.href = "admin.html";
-    } else {
+if (user === ADMIN_USER && pass === ADMIN_PASS) {
+  sessionStorage.setItem("adminLogado", "true");
+
+  setTimeout(() => {
+    window.location.href = "admin.html";
+  }, 100);
+} else {
       document.getElementById("loginError").style.display = "block";
     }
   });
@@ -467,10 +470,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Páginas específicas
   if(document.getElementById("homeProducts"))    renderizarHome();
   if(document.getElementById("productsContainer")){ renderizarProdutos(); iniciarBusca(); }
-  if(document.getElementById("adminProducts")){
-    verificarLoginAdmin();
+if (document.getElementById("adminProducts")) {
+  verificarLoginAdmin();
+
+  if (sessionStorage.getItem("adminLogado")) {
     renderizarAdmin();
   }
+}
 
   atualizarBadge();
 });
