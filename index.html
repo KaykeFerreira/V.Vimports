@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VC Imports - Sneakers Importados</title>
+  <title>V.V Imports - Sneakers Importados</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
@@ -16,7 +16,7 @@
 
     <a href="index.html" class="logo">
       <div class="logo-circle">
-        <span class="logo-vc">VC</span>
+        <span class="logo-vv">V.V</span>
         <span class="logo-imp">IMPORTS</span>
       </div>
     </a>
@@ -26,6 +26,7 @@
       <a class="nav-link" href="loja.html">Loja</a>
       <a class="nav-link" href="#destaques">Destaques</a>
       <a class="nav-link" href="#contato">Contato</a>
+      <a class="nav-link" href="admin.html">⚙️ Admin</a>
     </nav>
 
     <div class="header-actions">
@@ -53,6 +54,7 @@
     <p class="hero-sub">Os melhores modelos com qualidade e estilo para você.</p>
     <a href="loja.html" class="btn-hero">VER COLEÇÃO</a>
   </div>
+
   <div class="hero-img-wrap">
     <div class="hero-glow"></div>
     <img class="hero-shoe" src="img/banner.png" alt="Tênis em destaque">
@@ -62,30 +64,35 @@
 <!-- BENEFÍCIOS -->
 <section class="badges">
   <div class="badges-inner">
+
     <div class="badge-item">
       <div>
         <strong>PRODUTOS ORIGINAIS</strong>
         <span>Trabalhamos apenas com produtos originais.</span>
       </div>
     </div>
+
     <div class="badge-item">
       <div>
         <strong>ENVIO RÁPIDO</strong>
         <span>Receba com segurança em todo o Brasil.</span>
       </div>
     </div>
+
     <div class="badge-item">
       <div>
         <strong>PARCELAMENTO</strong>
         <span>Até 12x no cartão sem juros.</span>
       </div>
     </div>
+
     <div class="badge-item">
       <div>
         <strong>ATENDIMENTO PREMIUM</strong>
         <span>Suporte especializado.</span>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -93,71 +100,117 @@
 <section class="section" id="destaques">
   <div class="section-inner">
     <div class="section-head">
+
       <div class="section-title-wrap">
         <div class="section-bar"></div>
         <h2 class="section-title">DESTAQUES</h2>
       </div>
+
       <a class="btn-outline" href="loja.html">VER TODOS</a>
+
     </div>
+
     <div class="products-grid" id="homeProducts"></div>
+
   </div>
 </section>
 
 <!-- BANNER PROMO -->
 <section class="section" style="padding-top:0">
   <div class="section-inner">
+
     <div class="promo-banner">
+
       <div class="promo-content">
+
         <h2 class="promo-title">ATÉ <span>30% OFF</span></h2>
-        <p class="promo-text">Aproveite nossas promoções exclusivas.</p>
-        <a href="loja.html" class="btn-promo" style="display:inline-block;line-height:60px;text-align:center;text-decoration:none">
+
+        <p class="promo-text">
+          Aproveite nossas promoções exclusivas.
+        </p>
+
+        <a href="loja.html"
+           class="btn-promo"
+           style="display:inline-block;line-height:60px;text-align:center;text-decoration:none">
+
           APROVEITAR
+
         </a>
+
       </div>
+
     </div>
+
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer" id="contato">
+
   <div class="footer-top">
+
     <div class="footer-badge">
       <div>
         <strong>QUALIDADE GARANTIDA</strong>
         <span>Produtos selecionados com cuidado.</span>
       </div>
     </div>
+
     <div class="footer-badge">
       <div>
         <strong>COMPRA SEGURA</strong>
         <span>Seus dados sempre protegidos.</span>
       </div>
     </div>
+
     <div class="footer-logo">
-      <span class="footer-logo-text">VC <em>imports</em></span>
+      <span class="footer-logo-text">
+        V.V <em>imports</em>
+      </span>
     </div>
+
   </div>
+
   <div class="footer-bottom">
-    <p>© 2025 VC Imports — Todos os direitos reservados.</p>
-    <a class="footer-admin-link" href="adminlogin.html">Área Admin</a>
+    <p>© 2025 V.V Imports — Todos os direitos reservados.</p>
+
+    <a class="footer-admin-link" href="adminlogin.html">
+      Área Admin
+    </a>
   </div>
+
 </footer>
+
+<!-- BOTÃO FLUTUANTE ADMIN -->
+<a href="admin.html" class="floating-admin">
+  ⚙️ Admin
+</a>
 
 <!-- CARRINHO -->
 <div class="cart-overlay" id="cartOverlay"></div>
+
 <aside class="cart-drawer" id="cartDrawer">
+
   <div class="cart-header">
     <h3>Seu Carrinho</h3>
     <button class="cart-close" id="cartClose">&times;</button>
   </div>
+
   <div class="cart-items" id="cartItems"></div>
+
   <div class="cart-footer">
+
     <div class="cart-total">
       <span>Total</span>
       <strong id="cartTotal">R$ 0,00</strong>
     </div>
-    <button class="btn-checkout">FINALIZAR COMPRA</button>
+
+    <button class="btn-checkout">
+      FINALIZAR COMPRA
+    </button>
+
   </div>
+
 </aside>
 
 <!-- MODAL PRODUTO -->
@@ -172,5 +225,6 @@
 <div class="toast" id="toast"></div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
