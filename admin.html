@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - VC Imports</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-circle">
+
+                <span class="logo-vc">VC</span>
+
+                <span class="logo-imp">IMPORTS</span>
+
+            </div>
+
+        </a>
+
+        <nav class="nav">
+
+            <a class="nav-link" href="index.html">Início</a>
+
+            <a class="nav-link" href="loja.html">Loja</a>
+
+            <a class="nav-link" href="admin.html">Admin</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<!-- ADMIN -->
+
+<section class="page-admin">
+
+    <div class="admin-card">
+
+        <div class="admin-header">
+
+            <h1>
+
+                Painel Admin
+
+            </h1>
+
+        </div>
+
+        <form id="productForm" class="form-card">
+
+            <label>
+
+                Foto do produto
+
+            </label>
+
+            <input
+            type="file"
+            id="productImage"
+            accept=".png,.jpg,.jpeg"
+            required>
+
+            <label>
+
+                Nome do produto
+
+            </label>
+
+            <input
+            type="text"
+            id="productName"
+            placeholder="Nike Air Max"
+            required>
+
+            <label>
+
+                Marca
+
+            </label>
+
+            <input
+            type="text"
+            id="productBrand"
+            placeholder="Nike">
+
+            <label>
+
+                Categoria
+
+            </label>
+
+            <input
+            type="text"
+            id="productCategory"
+            placeholder="Sneaker">
+
+            <label>
+
+                Descrição
+
+            </label>
+
+            <input
+            type="text"
+            id="productDescription"
+            placeholder="Tênis importado premium">
+
+            <label>
+
+                Preço
+
+            </label>
+
+            <input
+            type="number"
+            id="productPrice"
+            placeholder="699.90"
+            step="0.01"
+            required>
+
+            <label>
+
+                Promoção
+
+            </label>
+
+            <input
+            type="text"
+            id="productPromo"
+            placeholder="10% OFF">
+
+            <button
+            class="btn-buy"
+            type="submit">
+
+                SALVAR PRODUTO
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- PRODUTOS CADASTRADOS -->
+
+<section class="section">
+
+    <div class="section-inner">
+
+        <div class="section-head">
+
+            <div class="section-title-wrap">
+
+                <div class="section-bar"></div>
+
+                <h2 class="section-title">
+
+                    PRODUTOS CADASTRADOS
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div
+        class="products-grid"
+        id="adminProducts">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-bottom">
+
+        <p>
+
+            © 2025 VC Imports
+
+        </p>
+
+    </div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
