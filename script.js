@@ -412,11 +412,11 @@ const ADMIN_PASS = "vvimports2025";
 function verificarLoginAdmin(){
   const logado = sessionStorage.getItem("adminLogado");
   if(!logado){
-    window.location.href = "adminlogin.html";
+    window.location.href = "admin.html";
   }
 }
 
-const loginForm = document.getElementById("adminLoginForm");
+const loginForm = document.getElementById("adminForm");
 if(loginForm){
   loginForm.addEventListener("submit", function(e){
     e.preventDefault();
@@ -433,7 +433,7 @@ if(loginForm){
 
 function logoutAdmin(){
   sessionStorage.removeItem("adminLogado");
-  window.location.href = "adminlogin.html";
+  window.location.href = "admin.html";
 }
 
 /* ─────────────────────────
