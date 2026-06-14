@@ -1,5 +1,5 @@
 /* =========================
-   VV IMPORTS — SCRIPT.JS FINAL FIX
+   VV IMPORTS — SCRIPT.JS FINAL FIX 100%
 ========================= */
 
 /* =========================
@@ -43,12 +43,11 @@ function mostrarToast(texto) {
 }
 
 /* =========================
-   BADGE CARRINHO
+   BADGE
 ========================= */
 
 function atualizarBadge() {
   const total = carrinho.reduce((acc, i) => acc + i.quantidade, 0);
-
   document.querySelectorAll(".cart-badge").forEach(b => {
     b.textContent = total;
   });
@@ -159,7 +158,7 @@ function fecharModal() {
 }
 
 /* =========================
-   CARD PRODUTO
+   CARD PRODUTO (FIX DESTAQUE)
 ========================= */
 
 function gerarCardProduto(p, admin = false) {
@@ -189,7 +188,7 @@ function gerarCardProduto(p, admin = false) {
 }
 
 /* =========================
-   HOME (DESTAQUES)
+   HOME (SÓ DESTAQUES)
 ========================= */
 
 function renderizarHome() {
@@ -198,10 +197,9 @@ function renderizarHome() {
 
   const destaques = produtos.filter(p => p.destaque === true);
 
-  el.innerHTML =
-    destaques.length > 0
-      ? destaques.map(gerarCardProduto).join("")
-      : "<p>Sem destaques</p>";
+  el.innerHTML = destaques.length
+    ? destaques.map(p => gerarCardProduto(p)).join("")
+    : "<p>Sem destaques</p>";
 }
 
 /* =========================
@@ -214,7 +212,9 @@ function renderizarProdutos(lista) {
 
   const data = lista || produtos;
 
-  el.innerHTML = data.map(gerarCardProduto).join("");
+  el.innerHTML = data.length
+    ? data.map(p => gerarCardProduto(p)).join("")
+    : "<p>Nenhum produto</p>";
 }
 
 /* =========================
@@ -225,7 +225,9 @@ function renderizarAdmin() {
   const el = document.getElementById("adminProducts");
   if (!el) return;
 
-  el.innerHTML = produtos.map(p => gerarCardProduto(p, true)).join("");
+  el.innerHTML = produtos.length
+    ? produtos.map(p => gerarCardProduto(p, true)).join("")
+    : "<p>Nenhum produto</p>";
 }
 
 function excluirProduto(id, e) {
@@ -233,51 +235,42 @@ function excluirProduto(id, e) {
 
   produtos = produtos.filter(p => p.id != id);
   salvarProdutos();
+
   renderizarAdmin();
   renderizarHome();
   renderizarProdutos();
 }
 
 /* =========================
-   CADASTRO PRODUTO (FIX PRINCIPAL)
+   CADASTRO PRODUTO (FIX FINAL)
 ========================= */
 
 const productForm = document.getElementById("productForm");
 
 if (productForm) {
-  productForm.addEventListener("submit", function (e) {
+  productForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const file = document.getElementById("productImage").files[0];
 
-    const nome = document.getElementById("productName").value;
-    const marca = document.getElementById("productBrand").value;
-    const categoria = document.getElementById("productCategory").value;
-    const descricao = document.getElementById("productDescription").value;
-    const preco = parseFloat(document.getElementById("productPrice").value);
-    const promo = document.getElementById("productPromo").value;
-    const destaque = document.getElementById("productDestaque")?.checked || false;
+    const produto = {
+      id: Date.now(),
+      imagem: "",
+      nome: document.getElementById("productName").value,
+      marca: document.getElementById("productBrand").value,
+      categoria: document.getElementById("productCategory").value,
+      descricao: document.getElementById("productDescription").value,
+      preco: parseFloat(document.getElementById("productPrice").value),
+      promo: document.getElementById("productPromo").value,
+      destaque: document.getElementById("productDestaque")?.checked || false
+    };
 
-    if (!file) {
-      alert("Selecione uma imagem!");
-      return;
-    }
+    if (!file) return alert("Selecione uma imagem!");
 
     const reader = new FileReader();
 
     reader.onload = function () {
-
-      const produto = {
-        id: Date.now(),
-        imagem: reader.result,
-        nome,
-        marca,
-        categoria,
-        descricao,
-        preco,
-        promo,
-        destaque
-      };
+      produto.imagem = reader.result;
 
       produtos.push(produto);
       salvarProdutos();
@@ -289,12 +282,9 @@ if (productForm) {
       productForm.reset();
 
       const preview = document.getElementById("imagePreview");
-      if (preview) {
-        preview.src = "";
-        preview.style.display = "none";
-      }
+      if (preview) preview.style.display = "none";
 
-      mostrarToast("Produto salvo com sucesso!");
+      mostrarToast("Produto salvo!");
     };
 
     reader.readAsDataURL(file);
@@ -302,55 +292,31 @@ if (productForm) {
 }
 
 /* =========================
-   LOGIN
-========================= */
-
-const loginForm = document.getElementById("adminLoginForm");
-
-if (loginForm) {
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const u = document.getElementById("adminUser").value;
-    const s = document.getElementById("adminPass").value;
-
-    if (u === "admin" && s === "vvimports2025") {
-      sessionStorage.setItem("adminLogado", "true");
-      window.location.href = "admin.html";
-    } else {
-      document.getElementById("loginError").style.display = "block";
-    }
-  });
-}
-
-function verificarLoginAdmin() {
-  if (!sessionStorage.getItem("adminLogado")) {
-    window.location.href = "adminlogin.html";
-  }
-}
-
-/* =========================
-   INIT
+   PREVIEW (MOSTRAR IMAGEM REAL)
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const imageInput = document.getElementById("productImage");
+  const input = document.getElementById("productImage");
   const preview = document.getElementById("imagePreview");
 
-  if (!imageInput || !preview) return;
+  if (!input || !preview) return;
 
-  imageInput.addEventListener("change", () => {
-    const file = imageInput.files[0];
-
+  input.addEventListener("change", () => {
+    const file = input.files[0];
     if (!file) return;
 
     const reader = new FileReader();
 
     reader.onload = (e) => {
-      preview.src = e.target.result;   // 👈 imagem real
-      preview.style.display = "block"; // 👈 mostra
+      preview.src = e.target.result;
+      preview.style.display = "block";
     };
 
     reader.readAsDataURL(file);
   });
+
+  renderizarHome();
+  renderizarProdutos();
+  renderizarAdmin();
+  atualizarBadge();
 });
